@@ -128,23 +128,28 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-#	"all": [
-#		"frappe_reports_cronjob.tasks.all"
-#	],
-#	"daily": [
-#		"frappe_reports_cronjob.tasks.daily"
-#	],
-#	"hourly": [
-#		"frappe_reports_cronjob.tasks.hourly"
-#	],
-#	"weekly": [
-#		"frappe_reports_cronjob.tasks.weekly"
-#	],
-#	"monthly": [
-#		"frappe_reports_cronjob.tasks.monthly"
-#	],
-# }
+scheduler_events = {
+    #  "cron":{
+    #      "* * * * * ":[
+    #          "frappe_reports_cronjob.tasks.send_sales_finance_report"
+    #      ]
+    #  },
+	#"all": [
+	#	"frappe_reports_cronjob.tasks.all"
+	#],
+	# "daily": [
+	# 	"frappe_reports_cronjob.tasks.daily"
+	# ],
+	# "hourly": [
+	# 	"frappe_reports_cronjob.tasks.hourly"
+	# ],
+	# "weekly": [
+	# 	"frappe_reports_cronjob.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"frappe_reports_cronjob.tasks.send_sales_finance_report"
+	# ],
+}
 
 # Testing
 # -------

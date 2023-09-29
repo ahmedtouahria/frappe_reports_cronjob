@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2023-09-29 14:59:01.497626",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "business_number",
+  "net_profit",
+  "profit_margin",
+  "number_sales",
+  "total_sales",
+  "new_customer",
+  "payment_received",
+  "unpaid_invoice",
+  "av_payment_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "business_number",
+   "fieldtype": "Float",
+   "label": "Business Number"
+  },
+  {
+   "fieldname": "net_profit",
+   "fieldtype": "Float",
+   "label": "Net Profit"
+  },
+  {
+   "fieldname": "profit_margin",
+   "fieldtype": "Float",
+   "label": "Profit margin"
+  },
+  {
+   "fieldname": "number_sales",
+   "fieldtype": "Int",
+   "label": "Total number of sales"
+  },
+  {
+   "fieldname": "total_sales",
+   "fieldtype": "Float",
+   "label": "Total sales"
+  },
+  {
+   "fieldname": "new_customer",
+   "fieldtype": "Int",
+   "label": "New Customer"
+  },
+  {
+   "fieldname": "payment_received",
+   "fieldtype": "Float",
+   "label": "Total payments received"
+  },
+  {
+   "fieldname": "unpaid_invoice",
+   "fieldtype": "Float",
+   "label": "Total unpaid invoices"
+  },
+  {
+   "fieldname": "av_payment_time",
+   "fieldtype": "Float",
+   "label": "Average payment time"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-09-29 15:07:04.894604",
+ "modified_by": "Administrator",
+ "module": "Frappe Reports Cronjob",
+ "name": "SalesFinanceReport",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
