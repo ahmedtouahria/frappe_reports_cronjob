@@ -1,0 +1,69 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2023-10-03 14:10:36.282916",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "stock_before_month",
+  "stock_after_month",
+  "nb_commandes",
+  "total_of_commandes",
+  "average_delevery_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "stock_before_month",
+   "fieldtype": "Int",
+   "label": "Stock total en d\u00e9but de mois"
+  },
+  {
+   "fieldname": "stock_after_month",
+   "fieldtype": "Int",
+   "label": "Stock total en fin de mois"
+  },
+  {
+   "fieldname": "nb_commandes",
+   "fieldtype": "Int",
+   "label": "Nombre total de commandes pass\u00e9es"
+  },
+  {
+   "fieldname": "total_of_commandes",
+   "fieldtype": "Currency",
+   "label": "Valeur totale des commandes"
+  },
+  {
+   "fieldname": "average_delevery_time",
+   "fieldtype": "Float",
+   "label": "D\u00e9lai moyen de livraison"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-03 14:15:01.226549",
+ "modified_by": "Administrator",
+ "module": "Frappe Reports Cronjob",
+ "name": "StockReport",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

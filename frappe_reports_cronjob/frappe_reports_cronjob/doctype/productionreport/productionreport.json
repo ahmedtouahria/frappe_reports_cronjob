@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-03 14:52:55.146038",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "nb_of_products",
+  "total_amount",
+  "average_production_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "nb_of_products",
+   "fieldtype": "Int",
+   "label": "Nombre total de produits fabriqu\u00e9s"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Co\u00fbt total de production"
+  },
+  {
+   "fieldname": "average_production_time",
+   "fieldtype": "Float",
+   "label": "Temps moyen de production par produit"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-03 14:55:28.037574",
+ "modified_by": "Administrator",
+ "module": "Frappe Reports Cronjob",
+ "name": "ProductionReport",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
