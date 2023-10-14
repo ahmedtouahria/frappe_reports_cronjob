@@ -37,11 +37,15 @@ def send_stock_report():
     recipient_email = "ahmedtouahria2001@gmail.com"
     print("send_stock_report")
     initial_stock_count = get_initial_stock_count()
-    #total_orders_value = get_total_orders_value()
-
+    stock_end_of_month=get_initial_stock_count_end_of_month()
+    total_orders_value = get_total_orders_value()
+    total_orders_count=get_total_orders_count()
+    average_time=calculate_average_delivery_time()
     email_content = f"initial_stock_count = {initial_stock_count} \n"
-    #email_content += f"total_orders_value = {total_orders_value}"
-
+    email_content += f"total_orders_value = {total_orders_value}\n"
+    email_content += f"stock_end_of_month = {stock_end_of_month}\n"
+    email_content += f"total_orders_count = {total_orders_count}\n"
+    email_content += f"average_time = {average_time}\n"
     print(email_content)
     # Send the email
     """ frappe.sendmail(
@@ -57,11 +61,11 @@ def send_production_report():
     recipient_email = "ahmedtouahria2001@gmail.com"
     print("send_production_report")
     total_products_manufactured = get_total_products_manufactured()
-    total_production_cost = get_total_production_cost()
-
+    total_production_cost = get_total_price_for_manufactured_products()
+    average_time = get_average_production_time_per_product()
     email_content = f"total_products_manufactured = {total_products_manufactured} \n"
-    email_content += f"total_production_cost = {total_production_cost}"
-
+    email_content += f"total_production_cost = {total_production_cost} \n"
+    email_content += f"average_time = {average_time} \n"
     print(email_content)
     # Send the email
     """ frappe.sendmail(
@@ -71,6 +75,3 @@ def send_production_report():
         message=email_content,
         
     ) """
-
-
-# produ

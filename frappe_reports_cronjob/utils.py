@@ -1,6 +1,6 @@
 import frappe
 from frappe.utils import now_datetime
-from datetime import datetime
+from datetime import datetime, timedelta
 from frappe.utils import get_datetime
 from frappe.utils import nowdate, add_days, get_first_day, get_last_day
 
@@ -203,6 +203,24 @@ def get_initial_stock_count():
 
     return stock_entries[0].initial_stock_count or 0
 
+def get_initial_stock_count_end_of_month():
+    from datetime import date
+    from dateutil.relativedelta import relativedelta
+
+    # Calculate the first day of the current month
+    today = date.today()
+    first_day_of_current_month = today.replace(day=1)
+
+    # Calculate the last day of the previous month (end of the current month)
+    end_of_last_month = first_day_of_current_month - relativedelta(days=1)
+
+    # Query Stock Ledger Entry records with a posting date before the end of the current month
+    stock_entries = frappe.get_all("Stock Ledger Entry", filters={
+        "posting_date": ("<=", end_of_last_month),
+        "docstatus": 1  # Include only submitted documents
+    }, fields=["SUM(actual_qty) as initial_stock_count"])
+
+    return stock_entries[0].initial_stock_count or 0
 def get_final_stock_count():
     # Replace "Item" with the appropriate DocType representing your inventory items
     stock_entries = frappe.get_all("Stock Entry", filters={
@@ -231,27 +249,74 @@ def get_total_orders_value():
 
     return orders[0].total_orders_value or 0
 
+def calculate_average_delivery_time():
+    total_delivery_time = timedelta()
+    total_orders = 0
 
+    # Query Sales Orders
+    sales_orders = frappe.get_all("Sales Order", filters={"docstatus": 1}, fields=["transaction_date", "delivery_date"])
+
+    for order in sales_orders:
+        transaction_date = order.transaction_date
+        delivery_date = order.delivery_date
+
+        if transaction_date and delivery_date:
+            delivery_time = delivery_date - transaction_date
+            total_delivery_time += delivery_time
+            total_orders += 1
+
+    if total_orders > 0:
+        average_delivery_time = total_delivery_time / total_orders
+        return average_delivery_time
+    else:
+        return 0
 # production
 
 def get_total_products_manufactured():
-    # Replace "Production Order" with the appropriate DocType representing your production orders
-    production_orders = frappe.get_all("Production Order", filters={
-        "status": "Completed",
-        "start_date": ["between", (get_first_day(frappe.utils.now_datetime()), get_last_day(frappe.utils.now_datetime()))]
-    })
+    total_manufactured = 0
+    # Query Stock Entry records with purpose "Manufacture" and status "Submitted"
+    stock_entries = frappe.get_all("Stock Entry",
+        filters={"purpose": "Manufacture", "docstatus": 1}  # 1 for Submitted
+    )
 
-    total_products = sum(order.qty for order in production_orders)
+    for stock_entry in stock_entries:
+        for item in stock_entry.get("items"):
+            if item.get("is_finished_item") == 1:  # 1 for True in Frappe/ERPNext
+                total_manufactured += item.get("qty")
 
-    return total_products
+    return total_manufactured
 
-def get_total_production_cost():
-    # Replace "Production Order" with the appropriate DocType representing your production orders
-    production_orders = frappe.get_all("Production Order", filters={
-        "status": "Completed",
-        "start_date": ["between", (get_first_day(frappe.utils.now_datetime()), get_last_day(frappe.utils.now_datetime()))]
-    })
+def get_total_price_for_manufactured_products():
+    total_price = 0
+    # Query Stock Entry records with purpose "Manufacture" and status "Submitted"
+    stock_entries = frappe.get_all("Stock Entry",
+        filters={"purpose": "Manufacture", "docstatus": 1}  # 1 for Submitted
+    )
 
-    total_cost = sum(order.total_cost for order in production_orders)
+    for stock_entry in stock_entries:
+        for item in stock_entry.get("items"):
+            if item.get("is_finished_item") == 1:  # 1 for True in Frappe/ERPNext
+                total_price += item.get("qty") * item.get("rate")
 
-    return total_cost
+    return total_price
+
+
+
+def get_average_production_time_per_product():
+    total_duration = 0
+    total_products = 0
+
+    # Query Stock Entry records with purpose "Manufacture" and status "Submitted"
+    stock_entries = frappe.get_all("Stock Entry",
+        filters={"purpose": "Manufacture", "docstatus": 1}  # 1 for Submitted
+    )
+
+    for stock_entry in stock_entries:
+        for item in stock_entry.get("items"):
+            if item.get("is_finished_item") == 1:  # 1 for True in Frappe/ERPNext
+                total_duration += (stock_entry.end_date - stock_entry.posting_date).days
+                total_products += item.get("qty")
+
+    average_time_per_product = total_duration / total_products if total_products > 0 else 0
+
+    return average_time_per_product
